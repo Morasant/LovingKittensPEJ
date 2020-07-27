@@ -10,6 +10,7 @@ import {
 import { filter, tap, buffer, takeUntil, map } from 'rxjs/operators';
 
 import { Subject } from 'rxjs';
+import { CounterService } from 'src/core/services/counter.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public title: String;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private counterService: CounterService,
+    ) {
     this.title = this.route.snapshot.firstChild.data['title'];
   }
 
@@ -60,7 +65,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public initVariables(){
-    this.contadorMataGatos = 0;
-    this.contadorFavoritos = 0;
+    this.contadorMataGatos = this.counterService.getContadorMatagatos();
+    console.log(this.contadorMataGatos);
+
+    this.contadorFavoritos = this.counterService.getContadorFavoritos();
   }
+
+
+
 }

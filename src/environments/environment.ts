@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlApi: 'https://gorest.co.in/public-api',
+  token: 'Y5I9VX2ISy9arl3G6Lku0pKB71PGVe5Sdp4u',
 };
 
 /*
