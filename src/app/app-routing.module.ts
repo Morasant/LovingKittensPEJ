@@ -1,11 +1,55 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BodyComponent } from './layout/body/body.component';
+import { HomeComponent } from './pages/Home/home.component';
+import { OwnersComponent } from './pages/Owners/owners.component';
+import { SearchComponent } from './pages/Search/search.componet';
 
+const routes: Routes = [
+  {
+    path:'',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
 
-const routes: Routes = [];
+  {
+    path: '',
+    component: BodyComponent,
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+        data:{
+          title: 'Home',
+        },
+      },
+
+      {
+        path: 'owners',
+        component: OwnersComponent,
+        data:{
+          title: 'Owners',
+        },
+      },
+
+      {
+        path: 'search',
+        component: SearchComponent,
+        data:{
+          title: 'Search',
+        },
+      }
+    ],
+  },
+
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
