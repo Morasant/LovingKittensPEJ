@@ -1,0 +1,23 @@
+.btn-home{
+  border: 2px solid;
+  border-color: $venus;
+  width: 15em;
+  height: 15em;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  &:hover{
+    background-color: $venus;
+    border-color: white;
+    span{
+      color: white;
+    }
+  }
+
+  span{
+    font-size: 3em;
+    padding-bottom: 0.5em;
+  }
+}

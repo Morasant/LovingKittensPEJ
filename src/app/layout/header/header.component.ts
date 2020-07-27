@@ -16,15 +16,21 @@ import { Subject } from 'rxjs';
   templateUrl: 'header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  public contadorMataGatos: number;
+  public contadorFavoritos: number;
+
   private ngUnsubscribe$ = new Subject();
 
-  public title: any;
+  public title: String;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.title = this.route.snapshot.firstChild.data['title'];
   }
 
   ngOnInit() {
+    this.initVariables();
+
     const routeEndEvent$ = this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd),
       tap(() => console.warn('END'))
@@ -45,9 +51,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.title = childRoute['title'];
         console.log(this.title);
       });
+
   }
+
   ngOnDestroy() {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  public initVariables(){
+    this.contadorMataGatos = 0;
+    this.contadorFavoritos = 0;
   }
 }
