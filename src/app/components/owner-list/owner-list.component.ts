@@ -15,15 +15,15 @@ export class OwnerListComponent implements OnInit {
   public errorMessage;
   public loading;
   public selected;
+  public ownerSelected;
 
   public subcripcionCat: Subscription;
-  public subcripcionFav: Subscription;
   public countCat = 0;
+  public subcripcionFav: Subscription;
   public countFav = 0;
 
   private finishPage: number;
   private actualPage: number;
-  private showGoUpButton: boolean;
 
   constructor(
     private _ownerService: OwnersService,
@@ -38,11 +38,16 @@ export class OwnerListComponent implements OnInit {
   }
 
   public initVariables(){
+    this.ownerList = [];
+    this.withoutOwnerList = "";
+    this.errorMessage = "";
+    this.loading = true;
+
+
     this.subcripcionCat = this._counterCatService.getContadorMatagatos().subscribe(counter => {this.countCat = counter});
     this.subcripcionFav = this._counterFavService.getContadorFavoritos().subscribe(counter => {this.countFav = counter});
 
     this.actualPage = 1;
-    this.showGoUpButton = false;
 
   }
   public getOrderList(actualPage) {
@@ -72,13 +77,15 @@ export class OwnerListComponent implements OnInit {
 
   public onSelect(id){
 
+    this.selected = id;
+
     this._counterCatService.setContadorMatagatos(this.incrementCat());
 
     this._ownerService.getDetail(id).subscribe(
       (response: any) => {
         if (response) {
           //console.log(response);
-          this.selected = response.result;
+          this.ownerSelected = response.result;
           this.loading = false;
         } else {
           this.loading = false;
@@ -109,7 +116,7 @@ export class OwnerListComponent implements OnInit {
     this._dataFavService.setDataFav(owner);
   }
 
-  public verMas(){
+  public showMore(){
     if (this.actualPage < this.finishPage) {
       this.actualPage ++;
       this.getOrderList(this.actualPage);
@@ -118,27 +125,5 @@ export class OwnerListComponent implements OnInit {
       console.log('No more lines. Finish page!');
     }
   }
-/*   add20lines() {
-    const line = 'Another new line -- ';
-    let lineCounter = this.linesToWrite.length;
-    for (let i = 0; i < 20; i ++) {
-      this.linesToWrite.push(line + lineCounter);
-      lineCounter ++;
-    }
-  } */
 
-  onScroll() {
-    if (this.actualPage < this.finishPage) {
-      /* this.actualPage ++;
-      this.getOrderList(this.actualPage); */
-
-    } else {
-      console.log('No more lines. Finish page!');
-    }
-  }
-
-  scrollTop() {
-    document.body.scrollTop = 0; // Safari
-    document.documentElement.scrollTop = 0; // Other
-  }
 }

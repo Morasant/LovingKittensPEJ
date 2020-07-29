@@ -1,0 +1,58 @@
+.list {
+  ul{
+    border: 0px solid $venus;
+    border-width: 0 0 1px 1px;
+  }
+  li {
+    cursor: pointer;
+    list-style: none;
+    border: 0 solid $venus;
+    border-width: 1px 1px 0px 0;
+    padding: .3em;
+    &:hover {
+      background-color: lightgrey;
+    }
+    &.selected {
+      color: white !important;
+      background-color: $venus !important;
+    }
+  }
+}
+
+
+.details {
+  border: 1px solid $venus;
+  height: 80%;
+  li {
+    list-style: none;
+    text-align: justify;
+  }
+  a {
+    margin-bottom: 10px;
+  }
+
+}
+
+.btn-owner-list {
+  cursor: pointer;
+  border: 1px solid $venus;
+  background-color: $venus;
+  width: 180px;
+  height: 40px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 10px;
+  span{
+    color: white;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    border-color: $venus;
+    span {
+      color: $venus;
+    }
+  }
+}
