@@ -1,0 +1,27 @@
+<section class="list">
+<ul class="border">
+  <li *ngFor="let owner of ownerList" (click)="onSelect(owner.id)" [class.selected]="owner === selected">
+    {{ owner.first_name }}, {{ owner.last_name }}, {{ owner.gender }},
+    {{ owner.status }}
+  </li>
+</ul>
+</section>
+
+<section class="details border"  *ngIf="selected">
+  <ul>
+    <li>
+      <p>{{selected.first_name}}</p>
+      <p>{{selected.last_name}}</p>
+      <p>{{selected.gender}}</p>
+      <p>{{selected.dob}}</p>
+      <p>{{selected.email}}</p>
+      <p>{{selected.phone}}</p>
+      <p>{{selected.website}}</p>
+      <p>{{selected.address}}</p>
+      <p>{{selected.status}}</p>
+    </li>
+  </ul>
+
+  <a class="btn btn-primary btn-icon" (click)="saveFav(selected)"><span>Añadir a favoritos</span></a>
+</section>
+
