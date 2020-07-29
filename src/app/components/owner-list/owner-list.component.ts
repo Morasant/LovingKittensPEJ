@@ -21,6 +21,10 @@ export class OwnerListComponent implements OnInit {
   public countCat = 0;
   public countFav = 0;
 
+  private finishPage: number;
+  private actualPage: number;
+  private showGoUpButton: boolean;
+
   constructor(
     private _ownerService: OwnersService,
     private _counterCatService: CounterCatService,
@@ -29,20 +33,29 @@ export class OwnerListComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.subcripcionCat = this._counterCatService.getContadorMatagatos().subscribe(counter => {this.countCat = counter});
-    this.subcripcionFav = this._counterFavService.getContadorFavoritos().subscribe(counter => {this.countFav = counter});
-    this.getOrderList();
+    this.initVariables();
+    this.getOrderList(this.actualPage);
   }
 
-  public getOrderList() {
+  public initVariables(){
+    this.subcripcionCat = this._counterCatService.getContadorMatagatos().subscribe(counter => {this.countCat = counter});
+    this.subcripcionFav = this._counterFavService.getContadorFavoritos().subscribe(counter => {this.countFav = counter});
+
+    this.actualPage = 1;
+    this.showGoUpButton = false;
+
+  }
+  public getOrderList(actualPage) {
 
     this._counterCatService.setContadorMatagatos(this.incrementCat());
 
-    this._ownerService.get().subscribe(
+    this._ownerService.get(actualPage).subscribe(
       (response: any) => {
         if (response) {
           //console.log(response);
           this.ownerList = response.result;
+          this.finishPage = response._meta.pageCount;
+
           this.loading = false;
         } else {
           this.loading = false;
@@ -61,7 +74,7 @@ export class OwnerListComponent implements OnInit {
 
     this._counterCatService.setContadorMatagatos(this.incrementCat());
 
-    this._ownerService.get(id).subscribe(
+    this._ownerService.getDetail(id).subscribe(
       (response: any) => {
         if (response) {
           //console.log(response);
@@ -94,5 +107,38 @@ export class OwnerListComponent implements OnInit {
   public saveFav(owner){
     this._counterFavService.setContadorFavoritos(this.incrementFav());
     this._dataFavService.setDataFav(owner);
+  }
+
+  public verMas(){
+    if (this.actualPage < this.finishPage) {
+      this.actualPage ++;
+      this.getOrderList(this.actualPage);
+
+    } else {
+      console.log('No more lines. Finish page!');
+    }
+  }
+/*   add20lines() {
+    const line = 'Another new line -- ';
+    let lineCounter = this.linesToWrite.length;
+    for (let i = 0; i < 20; i ++) {
+      this.linesToWrite.push(line + lineCounter);
+      lineCounter ++;
+    }
+  } */
+
+  onScroll() {
+    if (this.actualPage < this.finishPage) {
+      /* this.actualPage ++;
+      this.getOrderList(this.actualPage); */
+
+    } else {
+      console.log('No more lines. Finish page!');
+    }
+  }
+
+  scrollTop() {
+    document.body.scrollTop = 0; // Safari
+    document.documentElement.scrollTop = 0; // Other
   }
 }

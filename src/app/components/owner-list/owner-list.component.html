@@ -1,27 +1,43 @@
-<section class="list">
-<ul class="border">
-  <li *ngFor="let owner of ownerList" (click)="onSelect(owner.id)" [class.selected]="owner === selected">
-    {{ owner.first_name }}, {{ owner.last_name }}, {{ owner.gender }},
-    {{ owner.status }}
-  </li>
-</ul>
+<section class="list border">
+  <div
+    class="container"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  >
+    <ul>
+      <li
+        *ngFor="let owner of ownerList; index as i"
+        (click)="onSelect(owner.id)"
+        [class.selected]="owner === selected"
+      >
+        {{ owner.first_name }}, {{ owner.last_name }}, {{ owner.gender }},
+        {{ owner.status }}
+      </li>
+    </ul>
+    <a class="btn btn-primary btn-icon" (click)="verMas()"
+    ><span>Ver más</span></a
+  >
+  </div>
 </section>
 
-<section class="details border"  *ngIf="selected">
+<section class="details border" *ngIf="selected">
   <ul>
     <li>
-      <p>{{selected.first_name}}</p>
-      <p>{{selected.last_name}}</p>
-      <p>{{selected.gender}}</p>
-      <p>{{selected.dob}}</p>
-      <p>{{selected.email}}</p>
-      <p>{{selected.phone}}</p>
-      <p>{{selected.website}}</p>
-      <p>{{selected.address}}</p>
-      <p>{{selected.status}}</p>
+      <p>{{ selected.first_name }}</p>
+      <p>{{ selected.last_name }}</p>
+      <p>{{ selected.gender }}</p>
+      <p>{{ selected.dob }}</p>
+      <p>{{ selected.email }}</p>
+      <p>{{ selected.phone }}</p>
+      <p>{{ selected.website }}</p>
+      <p>{{ selected.address }}</p>
+      <p>{{ selected.status }}</p>
     </li>
   </ul>
 
-  <a class="btn btn-primary btn-icon" (click)="saveFav(selected)"><span>Añadir a favoritos</span></a>
+  <a class="btn btn-primary btn-icon" (click)="saveFav(selected)"
+    ><span>Añadir a favoritos</span></a
+  >
 </section>
-

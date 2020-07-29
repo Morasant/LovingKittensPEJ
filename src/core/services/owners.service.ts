@@ -8,17 +8,19 @@ import { environment } from 'src/environments/environment';
 export class OwnersService {
   constructor(private http: HttpClient) {}
 
-  get(id?) {
+  get(pagina?) {
     let headers = new HttpHeaders({
       Authorization: `Bearer ${environment.token}`,
     });
-    if(id){
-      return this.http.get(`${environment.urlApi}/users/${id}`, { headers });
-    }
-    else{
-      return this.http.get(`${environment.urlApi}/users`, { headers });
-    }
+    return this.http.get(`${environment.urlApi}/users?page=${pagina}`, { headers });
 
+  }
+
+  getDetail(id){
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
+    return this.http.get(`${environment.urlApi}/users/${id}`, { headers });
   }
 
 }
