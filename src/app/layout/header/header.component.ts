@@ -7,11 +7,12 @@ import {
   ChildActivationEnd,
 } from '@angular/router';
 
-import { filter, tap, buffer, takeUntil, map } from 'rxjs/operators';
+import { filter, buffer, takeUntil, map } from 'rxjs/operators';
 
-import { Subject, Observable, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { CounterCatService } from 'src/core/services/counter-cat.service';
 import { CounterFavService } from 'src/core/services/counter-fav.service';
+import { DataFavService } from 'src/core/services/data-fav.service';
 
 @Component({
   selector: 'app-header',
@@ -23,16 +24,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private ngUnsubscribe$ = new Subject();
 
   public contadorMataGatos: number;
-  public subcripcionCat: Subscription;
+  public subscripcionCat: Subscription;
 
   public contadorFavoritos: number;
-  public subcripcionFav: Subscription;
+  public subscripcionFav: Subscription;
+
+  public dataFav;
+  public subscripcionDataFav: Subscription;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
     private _counterCatService: CounterCatService,
     private _counterFavService: CounterFavService,
+    private _dataFavService: DataFavService,
     ) {
     this.title = this._route.snapshot.firstChild.data['title'];
   }
@@ -40,7 +45,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.initVariables();
-
     this.tituloDinamico();
 
   }
@@ -48,14 +52,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
-    this.subcripcionCat.unsubscribe();
-    this.subcripcionFav.unsubscribe();
+    this.subscripcionCat.unsubscribe();
+    this.subscripcionFav.unsubscribe();
+    this.subscripcionDataFav.unsubscribe();
   }
 
   public initVariables(){
 
-    this.subcripcionCat = this._counterCatService.getContadorMatagatos().subscribe(data => {this.contadorMataGatos = data});
-    this.subcripcionFav = this._counterFavService.getContadorFavoritos().subscribe(data =>{this.contadorFavoritos = data});
+    this.subscripcionCat = this._counterCatService.getContadorMatagatos().subscribe(data => {this.contadorMataGatos = data});
+    this.subscripcionFav = this._counterFavService.getContadorFavoritos().subscribe(data =>{this.contadorFavoritos = data});
+    this.subscripcionDataFav = this._dataFavService.getDataFav().subscribe(data => {this.dataFav = data});
 
   }
 

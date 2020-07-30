@@ -20,7 +20,7 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         data:{
-          title: 'Home',
+          title: 'Inicio',
         },
       },
 
@@ -28,7 +28,7 @@ const routes: Routes = [
         path: 'owners',
         component: OwnersComponent,
         data:{
-          title: 'Owners',
+          title: 'Dueños',
         },
       },
 
@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'search',
         component: SearchComponent,
         data:{
-          title: 'Search',
+          title: 'Buscar',
         },
       }
     ],

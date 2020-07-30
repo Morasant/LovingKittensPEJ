@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OwnerListComponent } from './owner-list/owner-list.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,10 +12,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   imports: [
     CommonModule,
     RouterModule,
-    InfiniteScrollModule,
+    FormsModule,
   ],
   exports: [
-    OwnerListComponent
+    OwnerListComponent,
   ],
   providers: [],
   bootstrap: []

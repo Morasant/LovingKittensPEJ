@@ -23,4 +23,13 @@ export class OwnersService {
     return this.http.get(`${environment.urlApi}/users/${id}`, { headers });
   }
 
+  getSearchDetail(args, pagina){
+    console.log(args, pagina);
+
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${environment.token}`,
+    });
+    return this.http.get(`${environment.urlApi}/users?first_name=${args}&page=${pagina}`, { headers });
+  }
+
 }
