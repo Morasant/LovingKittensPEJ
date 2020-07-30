@@ -154,19 +154,23 @@ export class OwnerListComponent implements OnInit {
   }
 
   public saveFav(owner){
+
     this.errorMessage = '';
     this.subscripcionDataFav = this._dataFavService.getDataFav().subscribe(data => {this.dataFav = data});
-    let comprobacion = this.dataFav.includes(owner);
+
+    let comprobacion = this.dataFav.some(e => e.id == owner.id);
+
     if(!comprobacion){
       this._counterFavService.setContadorFavoritos(this.incrementFav());
       this._dataFavService.setDataFav(owner);
     }
     else {
       this.errorMessage = 'existe';
-      $(".alert").alert('show');
+      $(".alert-fav").removeClass('collapse');
       setTimeout(function() {
-        $(".alert").alert('close');
+        $(".alert-fav").addClass('collapse');
     }, 3000);
+
     }
 
   }
