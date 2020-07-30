@@ -1,5 +1,17 @@
+<section class="search row justify-content-center" *ngIf="search">
+  <form>
+    <input
+      type="text"
+      class="form-control"
+      name="filterSearch"
+      placeholder="Buscar..."
+      [(ngModel)]="filterSearch"
+    />
+    <button class="btn btn-owner-list" (click)="onSubmit(filterSearch)">Buscar</button>
+  </form>
+</section>
 <div class="row justify-content-center">
-<section class="list col-md-4">
+  <section class="list col-md-4">
     <ul class="list-inline justify-content-center">
       <li
         *ngFor="let owner of ownerList; index as i"
@@ -10,28 +22,29 @@
         {{ owner.status }}
       </li>
     </ul>
-    <a class="btn btn-owner-list" (click)="showMore()"
-    ><span>Ver más</span></a
-  >
-</section>
+    <a class="btn btn-owner-list" (click)="showMore()"><span>Ver más</span></a>
+  </section>
 
-<section class="details col-md-4 mb-5" *ngIf="ownerSelected">
-  <ul class="list-inline justify-content-center">
-    <li>
-      <p>{{ ownerSelected.first_name }}</p>
-      <p>{{ ownerSelected.last_name }}</p>
-      <p>{{ ownerSelected.gender }}</p>
-      <p>{{ ownerSelected.dob }}</p>
-      <p>{{ ownerSelected.email }}</p>
-      <p>{{ ownerSelected.phone }}</p>
-      <p>{{ ownerSelected.website }}</p>
-      <p>{{ ownerSelected.address }}</p>
-      <p>{{ ownerSelected.status }}</p>
-    </li>
-  </ul>
-
-  <a class="btn btn-owner-list" (click)="saveFav(ownerSelected)"
-    ><span>Añadir a favoritos</span></a
+  <section
+    class="details col-md-4 mb-5 align-items-center"
+    *ngIf="ownerSelected"
   >
-</section>
+    <ul class="list-inline justify-content-center">
+      <li>
+        <p>{{ ownerSelected.first_name }}</p>
+        <p>{{ ownerSelected.last_name }}</p>
+        <p>{{ ownerSelected.gender }}</p>
+        <p>{{ ownerSelected.dob }}</p>
+        <p>{{ ownerSelected.email }}</p>
+        <p>{{ ownerSelected.phone }}</p>
+        <p>{{ ownerSelected.website }}</p>
+        <p>{{ ownerSelected.address }}</p>
+        <p>{{ ownerSelected.status }}</p>
+      </li>
+    </ul>
+
+    <a class="btn btn-owner-list" (click)="saveFav(ownerSelected)"
+      ><span>Añadir a favoritos</span></a
+    >
+  </section>
 </div>
