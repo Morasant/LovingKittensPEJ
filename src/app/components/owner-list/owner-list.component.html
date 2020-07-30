@@ -1,13 +1,29 @@
-<section class="search row justify-content-center" *ngIf="search">
+<section class="search" *ngIf="search">
   <form>
-    <input
-      type="text"
-      class="form-control"
-      name="filterSearch"
-      placeholder="Buscar..."
-      [(ngModel)]="filterSearch"
-    />
-    <button class="btn btn-owner-list" (click)="onSubmit(filterSearch)">Buscar</button>
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="filterSearch"
+            placeholder="Buscar..."
+            [(ngModel)]="filterSearch"
+          />
+          <div class="input-group-append">
+            <button
+              [ngClass]="filterSearch.length >= 2 ? 'input-group-text' : 'invisible'"
+              (click)="onSubmit(filterSearch)"
+            >
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
 </section>
 <div class="row justify-content-center">
@@ -26,8 +42,8 @@
   </section>
 
   <section
-    class="details col-md-4 mb-5 align-items-center"
     *ngIf="ownerSelected"
+    class="details col-md-4 mb-5 align-items-center sticky-top"
   >
     <ul class="list-inline justify-content-center">
       <li>
@@ -47,4 +63,11 @@
       ><span>Añadir a favoritos</span></a
     >
   </section>
+</div>
+
+<div class="alert alert-warning alert-dismissible collapse alert-fixed" role="alert" id="success-warning">
+  <strong>Ojo!</strong> Ya has añadido este dueño a favoritos.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>

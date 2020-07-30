@@ -12,8 +12,11 @@ export class DataFavService {
 
   public setDataFav(data){
     let newData = this.dataFav$.getValue();
-    newData.push(data);
-    this.dataFav$.next(newData);
+    if(newData.includes(data) != true){
+      newData.push(data);
+      this.dataFav$.next(newData);
+    }
+
   }
 
   public getDataFav(): Observable<any>{

@@ -1,10 +1,27 @@
-.header{
-  i{
+.header {
+  i {
     color: $venus;
   }
-  .title{
+  .title {
     font-size: 5em;
+  }
+  .btn-modal {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 
-
+.modal {
+  .modal-header {
+    i {
+      color: $venus;
+    }
+  }
+  .modal-body {
+    height: 250px;
+    width: 100%;
+    overflow-y: auto;
+  }
+}

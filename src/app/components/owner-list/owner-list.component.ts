@@ -6,6 +6,8 @@ import { CounterFavService } from 'src/core/services/counter-fav.service';
 import { DataFavService } from 'src/core/services/data-fav.service';
 import { ActivatedRoute } from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'app-owner-list',
   templateUrl: 'owner-list.component.html',
@@ -18,10 +20,13 @@ export class OwnerListComponent implements OnInit {
   public selected;
   public ownerSelected;
 
-  public subcripcionCat: Subscription;
+  public subscripcionCat: Subscription;
   public countCat = 0;
-  public subcripcionFav: Subscription;
+  public subscripcionFav: Subscription;
   public countFav = 0;
+
+  public subscripcionDataFav: Subscription;
+  public dataFav;
 
   private finishPage: number;
   private actualPage: number;
@@ -43,17 +48,16 @@ export class OwnerListComponent implements OnInit {
     this.searchBar();
     this.getOrderList(this.actualPage);
 
-
+    //Falta poner límite 2 caracteres filter search
   }
 
   public initVariables(){
     this.ownerList = [];
     this.withoutOwnerList = "";
-    this.errorMessage = "";
     this.loading = true;
 
-    this.subcripcionCat = this._counterCatService.getContadorMatagatos().subscribe(counter => {this.countCat = counter});
-    this.subcripcionFav = this._counterFavService.getContadorFavoritos().subscribe(counter => {this.countFav = counter});
+    this.subscripcionCat = this._counterCatService.getContadorMatagatos().subscribe(counter => {this.countCat = counter});
+    this.subscripcionFav = this._counterFavService.getContadorFavoritos().subscribe(counter => {this.countFav = counter});
 
     this.actualPage = 1;
 
@@ -150,8 +154,21 @@ export class OwnerListComponent implements OnInit {
   }
 
   public saveFav(owner){
-    this._counterFavService.setContadorFavoritos(this.incrementFav());
-    this._dataFavService.setDataFav(owner);
+    this.errorMessage = '';
+    this.subscripcionDataFav = this._dataFavService.getDataFav().subscribe(data => {this.dataFav = data});
+    let comprobacion = this.dataFav.includes(owner);
+    if(!comprobacion){
+      this._counterFavService.setContadorFavoritos(this.incrementFav());
+      this._dataFavService.setDataFav(owner);
+    }
+    else {
+      this.errorMessage = 'existe';
+      $(".alert").alert('show');
+      setTimeout(function() {
+        $(".alert").alert('close');
+    }, 3000);
+    }
+
   }
 
   public showMore(){
