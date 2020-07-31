@@ -10,7 +10,7 @@ import { PagesModule } from '../pages/pages.module';
 @NgModule({
   declarations: [
     BodyComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
