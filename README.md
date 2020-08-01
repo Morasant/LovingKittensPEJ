@@ -2,26 +2,26 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.4.
 
-## Development server
+## Instrucciones para ejecutar el proyecto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Es imprescidible tener instalado node.js y el gestor de paquetes npm para poder ejecutar el proyecto. 
 
-## Code scaffolding
+- Para Windows/Mac: Instalamos node.js desde [aquí](https://nodejs.org/es/download)
+- En Linux: `sudo apt install nodejs` y `sudo apt install npm`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Es Recomendable tener Git para poder clonar el proyecto directamente desde GitHub.
 
-## Build
+- Para Windows: [aquí](http://git-scm.com/download/win)  
+- Para Mac: [aquí](http://mac.github.com)  
+- Para Linux: `sudo apt install git`  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+3. Una vez que se han instalado estas dos aplicaciones pasamos a descargarnos el repositorio donde se encuentra la aplicación que vamos a ejecutar.  Desde el cmd de Windows o el terminal de linux creamos y/o nos situamos en la carpeta donde queremos descargar la aplicación y escribimos los siguiente comandos:  
 
-## Running unit tests
+- `git clone https://github.com/Morasant/LovingKittensPEJ` 
+- `cd LovingKittensPEJ`  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. Ahora necesitaremos descargar todos los paquetes requeridos por la aplicación.  
 
-## Running end-to-end tests
+- Escribimos `npm install` dentro de la carpeta de la aplicación.  
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+5. Por último, arrancamos el servidor con el comando `ng serve` dentro de la aplicación y cuando carge en el navegador ponemos `http://localhost:4200/`.
