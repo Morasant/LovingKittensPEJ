@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { OwnerListComponent } from './owner-list/owner-list.component';
 import { FormsModule } from '@angular/forms';
 import { DobPipe } from 'src/core/pipes/dob.pipe';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { DobPipe } from 'src/core/pipes/dob.pipe';
     CommonModule,
     RouterModule,
     FormsModule,
+    InfiniteScrollModule,
   ],
   exports: [
     OwnerListComponent,
