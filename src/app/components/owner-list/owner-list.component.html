@@ -1,3 +1,9 @@
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div id="load" *ngIf="!loading">
 <section class="search" *ngIf="search">
   <form>
     <div class="row justify-content-center mb-4">
@@ -15,7 +21,9 @@
           />
           <div class="input-group-append">
             <button
-              [ngClass]="filterSearch.length >= 2 ? 'input-group-text' : 'invisible'"
+              [ngClass]="
+                filterSearch.length >= 2 ? 'input-group-text' : 'invisible'
+              "
               (click)="onSubmit(filterSearch)"
             >
               Buscar
@@ -26,11 +34,17 @@
     </div>
   </form>
 </section>
+
 <div class="row justify-content-center">
-  <section class="list col-md-4">
+  <section
+    class="list col-md-5"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    (scrolled)="showMore()"
+  >
     <ul class="list-inline justify-content-center">
       <li
-        *ngFor="let owner of ownerList; index as i"
+        *ngFor="let owner of ownerList;"
         (click)="onSelect(owner.id)"
         [class.selected]="owner.id == selected"
       >
@@ -38,19 +52,26 @@
         {{ owner.status }}
       </li>
     </ul>
-    <a class="btn btn-owner-list" (click)="showMore()"><span>Ver más</span></a>
+    <button
+      [ngClass]="'no-hidden'"
+      *ngIf="showGoUpButton"
+      class="btn btn-owner-list"
+      (click)="scrollTop()"
+    >
+      <span><i class="fas fa-arrow-up"></i> Volver arriba</span>
+    </button>
   </section>
 
   <section
     *ngIf="ownerSelected"
-    class="details col-md-4 mb-5 align-items-center sticky-top"
+    class="details col-md-5 mb-5 align-items-center sticky-top"
   >
-    <ul class="list-inline justify-content-center">
+    <ul class="list-inline justify-content-center mt-2">
       <li>
         <p>{{ ownerSelected.first_name }}</p>
         <p>{{ ownerSelected.last_name }}</p>
         <p>{{ ownerSelected.gender }}</p>
-        <p>{{ ownerSelected.dob }}</p>
+        <p>{{ ownerSelected.dob | dob }}</p>
         <p>{{ ownerSelected.email }}</p>
         <p>{{ ownerSelected.phone }}</p>
         <p>{{ ownerSelected.website }}</p>
@@ -64,9 +85,10 @@
     >
   </section>
 </div>
-
-<div class="alert alert-warning collapse alert-fav" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span></button>
+</div>
+<div id="alert-fav" class="alert alert-warning collapse" role="alert">
+  <button type="button" class="close" (click)="closeAlert()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
   <h5><strong>Ojo!</strong> Ya has añadido este dueño a favoritos.</h5>
 </div>
